@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Builder;
 
 namespace Weather
 {
@@ -37,6 +38,7 @@ namespace Weather
                          //we switch the server around.
                          if (ctx.HostingEnvironment.IsProduction())
                          {
+                             Console.WriteLine("******* PRODUCTION ********");
                              options.Listen(IPAddress.Any, 5050, listenOptions =>
                              {
                                  listenOptions.Protocols = HttpProtocols.Http2;
@@ -44,6 +46,7 @@ namespace Weather
                          }
                          else
                          {
+                             Console.WriteLine("******* DEVELOPMENT ********");
                              options.Listen(IPAddress.Any, 5050, listenOptions =>
                              {
                                  listenOptions.Protocols = HttpProtocols.Http2;
@@ -54,8 +57,9 @@ namespace Weather
                              });
                              options.Listen(IPAddress.Any, 5001, listenOptions =>
                              {
-                                 listenOptions.UseHttps();
-                                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                                 //listenOptions.UseHttps();
+                                 //listenOptions.Protocols = HttpProtocols.Http1AndHttp2 | HttpProtocols.Http1;
+                                 listenOptions.Protocols = HttpProtocols.Http2;
                              });
                          }
                      });

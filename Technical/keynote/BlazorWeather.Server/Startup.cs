@@ -28,6 +28,11 @@ namespace BlazorWeather
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // start demo
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+          
+            // end demo
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddGrpcWeatherForecastService(options =>
